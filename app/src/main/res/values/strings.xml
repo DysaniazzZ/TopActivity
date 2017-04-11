@@ -1,3 +1,5 @@
 <resources>
   <string name="app_name">TopActivity</string>
+  <string name="show_floating_window">Show Floating Window</string>
+  <string name="top_activity_detail">%1$s\n%2$s</string>
 </resources>
