@@ -2,4 +2,6 @@
   <string name="app_name">TopActivity</string>
   <string name="show_floating_window">Show Floating Window</string>
   <string name="top_activity_detail">%1$s\n%2$s</string>
+  <string name="top_activity_description">Enable this function to tracker top activity.</string>
+  <string name="enable_accessibility_msg">To tracker top activity, you need to enable Accessibility Service in Settings.</string>
 </resources>
