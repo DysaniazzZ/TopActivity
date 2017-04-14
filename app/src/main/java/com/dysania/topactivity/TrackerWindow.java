@@ -2,6 +2,8 @@ package com.dysania.topactivity;
 
 import android.content.Context;
 import android.graphics.PixelFormat;
+import android.os.Build.VERSION;
+import android.os.Build.VERSION_CODES;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +22,9 @@ public class TrackerWindow {
 
     public static void init(Context context) {
         sWindowManager = (WindowManager) context.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
-        sLayoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, LayoutParams.TYPE_TOAST,
-                LayoutParams.FLAG_NOT_FOCUSABLE, PixelFormat.TRANSLUCENT);
+        sLayoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
+                VERSION.SDK_INT >= VERSION_CODES.N_MR1 ? LayoutParams.TYPE_SYSTEM_ALERT : LayoutParams.TYPE_TOAST,
+                0x18, PixelFormat.TRANSLUCENT);
         sLayoutParams.gravity = Gravity.TOP | Gravity.LEFT;
         sView = LayoutInflater.from(context.getApplicationContext()).inflate(R.layout.view_tracker_window, null);
     }

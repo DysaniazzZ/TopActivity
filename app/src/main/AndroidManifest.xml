@@ -2,7 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="com.dysania.topactivity">
 
-  <uses-permission android:name="android.permission.GET_TASKS"/>
+  <!--Android 5.0以后（包括）以后不需要这个权限-->
+  <uses-permission android:maxSdkVersion="20" android:name="android.permission.GET_TASKS"/>
+  <!--Android 7.1以后（包括）使用的悬浮窗需要这个权限-->
+  <uses-permission-sdk-23 android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
   <application
     android:allowBackup="true"
@@ -11,8 +14,7 @@
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
 
-    <activity android:name=".SettingsActivity"
-      android:launchMode="singleInstance">
+    <activity android:name=".SettingsActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
 

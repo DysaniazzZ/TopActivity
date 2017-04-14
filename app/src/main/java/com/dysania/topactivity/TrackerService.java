@@ -2,7 +2,6 @@ package com.dysania.topactivity;
 
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningTaskInfo;
-import android.app.NotificationManager;
 import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
@@ -21,14 +20,12 @@ public class TrackerService extends Service {
     private Timer mTimer;
     private String mTopActivityDetail;
     private ActivityManager mActivityManager;
-    private NotificationManager mNotificationManager;
     private Handler mHandler = new Handler();
 
     @Override
     public void onCreate() {
         super.onCreate();
         mActivityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
     }
 
     @Override
@@ -52,7 +49,7 @@ public class TrackerService extends Service {
             //Note: Android 5.0 后这个方法将不可用
             List<RunningTaskInfo> runningTaskInfos = mActivityManager.getRunningTasks(1);
             ComponentName topActivity = runningTaskInfos.get(0).topActivity;
-            String topActivityDetail = getString(R.string.top_activity_detail, topActivity.getPackageName(), topActivity.getClassName());
+            String topActivityDetail = getString(R.string.top_activity_details, topActivity.getPackageName(), topActivity.getClassName());
             if (!topActivityDetail.equals(mTopActivityDetail)) {
                 mTopActivityDetail = topActivityDetail;
                 if (SPUtil.isShowWindow(TrackerService.this)) {
