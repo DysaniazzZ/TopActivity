@@ -35,70 +35,64 @@ public class SettingsActivity extends AppCompatActivity implements OnCheckedChan
     @Override
     protected void onResume() {
         super.onResume();
-        boolean isShowWindow = SPUtil.isShowWindow(mContext);
-        mSwShowDetails.setChecked(isShowWindow);
-        //保证开关打开时服务是开启的
-        if (VERSION.SDK_INT < VERSION_CODES.LOLLIPOP) {
-            if (isShowWindow) {
-                startService(mTrackerServiceIntent);
-            }
-        } else {
-            if (TrackerAccessibilityService.getInstance() == null) {
-                mSwShowDetails.setChecked(false);
-            }
+        mSwShowDetails.setChecked(SPUtil.isShowWindow(mContext));
+        if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP && TrackerAccessibilityService.getInstance() == null) {
+            mSwShowDetails.setChecked(false);
         }
     }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        SPUtil.setShowWindow(mContext, isChecked);
         if (VERSION.SDK_INT < VERSION_CODES.LOLLIPOP) {
             //Android 5.0（不包括）以前使用普通服务轮询获取
+            SPUtil.setShowWindow(mContext, isChecked);
             if (isChecked) {
                 startService(mTrackerServiceIntent);
             } else {
                 stopService(mTrackerServiceIntent);
             }
-        } else {
-            if (!isChecked) {
-                TrackerWindow.dismiss();
-                return;
-            }
+            return;
+        }
 
-            //Android 5.0（包括）以后使用辅助服务获取前台活动
-            if (VERSION.SDK_INT < VERSION_CODES.N_MR1) {
-                //Android 7.1（不包括）之前只需要判断辅助服务是否开启
-                whetherToShowStartAccessibilityServiceDialog();
+        if (!isChecked) {
+            SPUtil.setShowWindow(mContext, isChecked);
+            TrackerWindow.dismiss();
+            return;
+        }
+
+        //Android 5.0（包括）以后使用辅助服务获取前台活动
+        if (VERSION.SDK_INT < VERSION_CODES.N_MR1) {
+            //Android 7.1（不包括）之前只需要判断辅助服务是否开启
+            whetherToShowStartAccessibilityServiceDialog();
+        } else {
+            //Android 7.1（包括）之后需要先判断悬浮窗权限是否授予
+            if (!Settings.canDrawOverlays(mContext)) {
+                new AlertDialog.Builder(mContext)
+                        .setMessage(getString(R.string.enable_floating_window_msg))
+                        .setPositiveButton(android.R.string.yes, new OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+                                intent.setData(Uri.parse("package:" + getPackageName()));
+                                startActivity(intent);
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                mSwShowDetails.setChecked(false);
+                            }
+                        })
+                        .setOnCancelListener(new OnCancelListener() {
+                            @Override
+                            public void onCancel(DialogInterface dialog) {
+                                mSwShowDetails.setChecked(false);
+                            }
+                        })
+                        .show();
+                return;
             } else {
-                //Android 7.1（包括）之后需要先判断悬浮窗权限是否授予
-                if(!Settings.canDrawOverlays(mContext)) {
-                    new AlertDialog.Builder(mContext)
-                            .setMessage(getString(R.string.enable_floating_window_msg))
-                            .setPositiveButton(android.R.string.yes, new OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
-                                    intent.setData(Uri.parse("package:" + getPackageName()));
-                                    startActivity(intent);
-                                }
-                            })
-                            .setNegativeButton(android.R.string.no, new OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    mSwShowDetails.setChecked(false);
-                                }
-                            })
-                            .setOnCancelListener(new OnCancelListener() {
-                                @Override
-                                public void onCancel(DialogInterface dialog) {
-                                    mSwShowDetails.setChecked(false);
-                                }
-                            })
-                            .show();
-                    return;
-                } else {
-                    whetherToShowStartAccessibilityServiceDialog();
-                }
+                whetherToShowStartAccessibilityServiceDialog();
             }
         }
     }
@@ -110,6 +104,7 @@ public class SettingsActivity extends AppCompatActivity implements OnCheckedChan
                     .setPositiveButton(android.R.string.yes, new OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            SPUtil.setShowWindow(mContext, true);
                             Intent intent = new Intent("android.settings.ACCESSIBILITY_SETTINGS");
                             startActivity(intent);
                         }
@@ -128,6 +123,7 @@ public class SettingsActivity extends AppCompatActivity implements OnCheckedChan
                     })
                     .show();
         } else {
+            SPUtil.setShowWindow(mContext, true);
             TrackerWindow.show(mContext, getString(R.string.top_activity_details, getPackageName(), getClass().getName()));
         }
     }
