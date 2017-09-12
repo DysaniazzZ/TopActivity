@@ -1,4 +1,4 @@
-package com.dysania.topactivity;
+package com.dysania.topactivity.service;
 
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningTaskInfo;
@@ -8,6 +8,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
+import com.dysania.topactivity.R;
+import com.dysania.topactivity.util.TrackerWindowUtil;
+import com.dysania.topactivity.util.SPUtil;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -56,7 +59,7 @@ public class TrackerService extends Service {
                     mHandler.post(new Runnable() {
                         @Override
                         public void run() {
-                            TrackerWindow.show(TrackerService.this, mTopActivityDetail);
+                            TrackerWindowUtil.show(TrackerService.this, mTopActivityDetail);
                         }
                     });
                 }
@@ -71,6 +74,6 @@ public class TrackerService extends Service {
         if (mTimer != null) {
             mTimer.cancel();
         }
-        TrackerWindow.dismiss();
+        TrackerWindowUtil.dismiss();
     }
 }

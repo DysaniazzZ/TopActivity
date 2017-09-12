@@ -1,4 +1,4 @@
-package com.dysania.topactivity;
+package com.dysania.topactivity.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;

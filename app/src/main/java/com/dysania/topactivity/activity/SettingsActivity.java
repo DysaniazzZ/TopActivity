@@ -1,4 +1,4 @@
-package com.dysania.topactivity;
+package com.dysania.topactivity.activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,6 +15,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Switch;
+import com.dysania.topactivity.R;
+import com.dysania.topactivity.service.TrackerAccessibilityService;
+import com.dysania.topactivity.service.TrackerService;
+import com.dysania.topactivity.util.SPUtil;
+import com.dysania.topactivity.util.TrackerWindowUtil;
 
 public class SettingsActivity extends AppCompatActivity implements OnCheckedChangeListener {
 
@@ -56,7 +61,7 @@ public class SettingsActivity extends AppCompatActivity implements OnCheckedChan
 
         if (!isChecked) {
             SPUtil.setShowWindow(mContext, isChecked);
-            TrackerWindow.dismiss();
+            TrackerWindowUtil.dismiss();
             return;
         }
 
@@ -124,7 +129,7 @@ public class SettingsActivity extends AppCompatActivity implements OnCheckedChan
                     .show();
         } else {
             SPUtil.setShowWindow(mContext, true);
-            TrackerWindow.show(mContext, getString(R.string.top_activity_details, getPackageName(), getClass().getName()));
+            TrackerWindowUtil.show(mContext, getString(R.string.top_activity_details, getPackageName(), getClass().getName()));
         }
     }
 }

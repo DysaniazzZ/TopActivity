@@ -1,4 +1,4 @@
-package com.dysania.topactivity;
+package com.dysania.topactivity.util;
 
 import android.content.Context;
 import android.graphics.PixelFormat;
@@ -10,11 +10,12 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.widget.TextView;
+import com.dysania.topactivity.R;
 
 /**
  * Created by DysaniazzZ on 06/04/2017.
  */
-public class TrackerWindow {
+public class TrackerWindowUtil {
 
     private static WindowManager sWindowManager;
     private static LayoutParams sLayoutParams;

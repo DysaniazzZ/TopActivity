@@ -14,7 +14,7 @@
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
 
-    <activity android:name=".SettingsActivity">
+    <activity android:name=".activity.SettingsActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
 
@@ -25,12 +25,12 @@
     <!--普通的服务，用于Android5.0前使用-->
     <service
       android:enabled="@bool/use_tracker_service"
-      android:name=".TrackerService"/>
+      android:name=".service.TrackerService"/>
 
     <!--辅助功能的服务，用于Android5.0后使用-->
     <service
       android:enabled="@bool/use_tracker_accessibility_service"
-      android:name=".TrackerAccessibilityService"
+      android:name=".service.TrackerAccessibilityService"
       android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
       <intent-filter>
         <action android:name="android.accessibilityservice.AccessibilityService"/>
