@@ -1,8 +1,17 @@
 <resources>
-  <string name="app_name">TopActivity</string>
+  <string name="app_name" translatable="false">TopActivity</string>
+
   <string name="show_top_activity_details">Show Top Activity Details</string>
   <string name="top_activity_details">%1$s\n%2$s</string>
+
+  <string name="app_is_running">%s is running</string>
+  <string name="action_to_settings">Touch to settings</string>
+  <string name="action_to_pause">Pause</string>
+  <string name="action_to_resume">Resume</string>
+  <string name="action_to_stop">Stop</string>
+
   <string name="accessibility_description">Enable this function to track top activity.</string>
+
   <string name="enable_accessibility_msg">To track top activity, you need to enable Accessibility Service in Settings after Android 5.0.</string>
   <string name="enable_floating_window_msg">Allow permission to show top activity details on the window after Android 7.1.</string>
 </resources>

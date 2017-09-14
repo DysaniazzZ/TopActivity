@@ -1,17 +1,12 @@
 package com.dysania.topactivity.service;
 
-import android.app.ActivityManager;
-import android.app.ActivityManager.RunningTaskInfo;
 import android.app.Service;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
-import com.dysania.topactivity.R;
-import com.dysania.topactivity.util.TrackerWindowUtil;
+import com.dysania.topactivity.util.ComponentsUtil;
 import com.dysania.topactivity.util.SPUtil;
-import java.util.List;
+import com.dysania.topactivity.util.TrackerWindowUtil;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -22,14 +17,7 @@ public class TrackerService extends Service {
 
     private Timer mTimer;
     private String mTopActivityDetail;
-    private ActivityManager mActivityManager;
     private Handler mHandler = new Handler();
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        mActivityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-    }
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -49,10 +37,7 @@ public class TrackerService extends Service {
 
         @Override
         public void run() {
-            //Note: Android 5.0 后这个方法将不可用
-            List<RunningTaskInfo> runningTaskInfos = mActivityManager.getRunningTasks(1);
-            ComponentName topActivity = runningTaskInfos.get(0).topActivity;
-            String topActivityDetail = getString(R.string.top_activity_details, topActivity.getPackageName(), topActivity.getClassName());
+            String topActivityDetail = ComponentsUtil.getTopActivityDetail(getApplicationContext());
             if (!topActivityDetail.equals(mTopActivityDetail)) {
                 mTopActivityDetail = topActivityDetail;
                 if (SPUtil.isShowWindow(TrackerService.this)) {
@@ -64,7 +49,6 @@ public class TrackerService extends Service {
                     });
                 }
             }
-
         }
     }
 

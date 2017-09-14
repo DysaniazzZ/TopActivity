@@ -4,8 +4,9 @@ import android.accessibilityservice.AccessibilityService;
 import android.content.Intent;
 import android.view.accessibility.AccessibilityEvent;
 import com.dysania.topactivity.R;
-import com.dysania.topactivity.util.TrackerWindowUtil;
+import com.dysania.topactivity.util.NotificationUtil;
 import com.dysania.topactivity.util.SPUtil;
+import com.dysania.topactivity.util.TrackerWindowUtil;
 
 /**
  * Created by DysaniazzZ on 13/04/2017.
@@ -32,6 +33,9 @@ public class TrackerAccessibilityService extends AccessibilityService {
     @Override
     protected void onServiceConnected() {
         sTrackerAccessibilityService = this;
+        if (SPUtil.isShowWindow(this)) {
+            NotificationUtil.showNotification(this, false);
+        }
         super.onServiceConnected();
     }
 
@@ -39,6 +43,7 @@ public class TrackerAccessibilityService extends AccessibilityService {
     public boolean onUnbind(Intent intent) {
         sTrackerAccessibilityService = null;
         TrackerWindowUtil.dismiss();
+        NotificationUtil.cancelNotification(this);
         return super.onUnbind(intent);
     }
 }

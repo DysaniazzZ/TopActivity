@@ -1,8 +1,17 @@
 <resources>
   <string name="app_name">TopActivity</string>
+
   <string name="show_top_activity_details">显示栈顶活动信息</string>
   <string name="top_activity_details">%1$s\n%2$s</string>
+
+  <string name="app_is_running">%s 正在运行</string>
+  <string name="action_to_settings">点击设置</string>
+  <string name="action_to_pause">暂停</string>
+  <string name="action_to_resume">恢复</string>
+  <string name="action_to_stop">停止</string>
+
   <string name="accessibility_description">打开这个选项以启用追踪栈顶活动信息的功能。</string>
+
   <string name="enable_accessibility_msg">为了追踪栈顶活动信息，你需要开启辅助功能里的选项。</string>
   <string name="enable_floating_window_msg">Android 7.1 以上，你需要开启悬浮窗权限。</string>
 </resources>
