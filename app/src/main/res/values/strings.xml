@@ -13,5 +13,5 @@
   <string name="accessibility_description">Enable this function to track top activity.</string>
 
   <string name="enable_accessibility_msg">To track top activity, you need to enable Accessibility Service in Settings after Android 5.0.</string>
-  <string name="enable_floating_window_msg">Allow permission to show top activity details on the window after Android 7.1.</string>
+  <string name="enable_floating_window_msg">Allow permission to show top activity details on the window after Android 6.0.</string>
 </resources>

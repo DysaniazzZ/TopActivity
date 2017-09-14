@@ -96,11 +96,11 @@ public class SettingsActivity extends AppCompatActivity implements OnCheckedChan
             }
 
             //Android 5.0（包括）以后使用辅助服务获取前台活动
-            if (VERSION.SDK_INT < VERSION_CODES.N_MR1) {
-                //Android 7.1（不包括）之前只需要判断辅助服务是否开启
+            if (VERSION.SDK_INT < VERSION_CODES.M) {
+                //Android 6.0（不包括）之前只需要判断辅助服务是否开启
                 whetherToShowStartAccessibilityServiceDialog();
             } else {
-                //Android 7.1（包括）之后需要先判断悬浮窗权限是否授予
+                //Android 6.0（包括）之后需要先判断悬浮窗权限是否授予
                 if (!Settings.canDrawOverlays(mContext)) {
                     new AlertDialog.Builder(mContext)
                             .setMessage(getString(R.string.enable_floating_window_msg))

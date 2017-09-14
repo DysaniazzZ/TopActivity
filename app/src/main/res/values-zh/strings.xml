@@ -13,5 +13,5 @@
   <string name="accessibility_description">打开这个选项以启用追踪栈顶活动信息的功能。</string>
 
   <string name="enable_accessibility_msg">为了追踪栈顶活动信息，你需要开启辅助功能里的选项。</string>
-  <string name="enable_floating_window_msg">Android 7.1 以上，你需要开启悬浮窗权限。</string>
+  <string name="enable_floating_window_msg">Android 6.0 以上，你需要开启悬浮窗权限。</string>
 </resources>
