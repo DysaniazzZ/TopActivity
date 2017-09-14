@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.support.v4.app.NotificationCompat;
 import com.dysania.topactivity.R;
 import com.dysania.topactivity.activity.SettingsActivity;
@@ -24,7 +25,9 @@ public class NotificationUtil {
     public static void showNotification(Context context, boolean isPaused) {
         PendingIntent activityIntent = PendingIntent.getActivity(context, 0, new Intent(context, SettingsActivity.class), 0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher))
+                .setSmallIcon(R.drawable.ic_notification)
+                .setColor(context.getResources().getColor(R.color.colorPrimary))
                 .setContentTitle(context.getString(R.string.app_is_running, context.getString(R.string.app_name)))
                 .setContentText(context.getString(R.string.action_to_settings))
                 .setContentIntent(activityIntent)
