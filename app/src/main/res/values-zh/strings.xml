@@ -10,6 +10,9 @@
   <string name="action_to_resume">恢复</string>
   <string name="action_to_stop">停止</string>
 
+  <string name="shortcut_switch_label">开关</string>
+  <string name="shortcut_switch_disabled">该快捷方式已不可用，请重新生成。</string>
+
   <string name="accessibility_description">打开这个选项以启用追踪栈顶活动信息的功能。</string>
 
   <string name="enable_accessibility_msg">为了追踪栈顶活动信息，你需要开启辅助功能里的选项。</string>

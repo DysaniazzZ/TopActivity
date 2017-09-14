@@ -21,10 +21,16 @@
       android:name=".activity.SettingsActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
-
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
+      <meta-data
+        android:name="android.app.shortcuts"
+        android:resource="@xml/app_shortcut_config"/>
     </activity>
+
+    <activity android:name=".activity.AppShortcutActivity"
+      android:excludeFromRecents="true"
+      android:exported="false"/>
 
     <!--普通的服务，Android5.0 前使用-->
     <service

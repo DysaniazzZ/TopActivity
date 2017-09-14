@@ -10,6 +10,9 @@
   <string name="action_to_resume">Resume</string>
   <string name="action_to_stop">Stop</string>
 
+  <string name="shortcut_switch_label">Switch</string>
+  <string name="shortcut_switch_disabled">This shortcut is disabled, please create a new one.</string>
+
   <string name="accessibility_description">Enable this function to track top activity.</string>
 
   <string name="enable_accessibility_msg">To track top activity, you need to enable Accessibility Service in Settings after Android 5.0.</string>

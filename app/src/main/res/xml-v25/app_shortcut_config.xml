@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+  <shortcut
+    android:enabled="true"
+    android:icon="@drawable/ic_shortcut"
+    android:shortcutDisabledMessage="@string/shortcut_switch_disabled"
+    android:shortcutId="switch"
+    android:shortcutShortLabel="@string/shortcut_switch_label">
+    <intent
+      android:action="com.dysania.topactivity.ACTION_NOTIFICATION_CHANGED"
+      android:targetClass="com.dysania.topactivity.activity.AppShortcutActivity"
+      android:targetPackage="com.dysania.topactivity"/>
+  </shortcut>
+</shortcuts>
