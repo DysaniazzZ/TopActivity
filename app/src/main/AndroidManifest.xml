@@ -29,9 +29,8 @@
     </activity>
 
     <activity
-      android:excludeFromRecents="true"
-      android:exported="false"
-      android:name=".activity.AppShortcutActivity"/>
+      android:name=".activity.AppShortcutActivity"
+      android:theme="@style/TransparentAppTheme"/>
 
     <!--普通的服务，Android 5.0 前使用-->
     <service
