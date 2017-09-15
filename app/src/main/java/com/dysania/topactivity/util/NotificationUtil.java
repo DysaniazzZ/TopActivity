@@ -23,6 +23,10 @@ public class NotificationUtil {
     public static final int ACTION_STOP = 0x03;
 
     public static void showNotification(Context context, boolean isPaused) {
+        if (!SPUtil.isNotificationEnabled(context)) {
+            return;
+        }
+
         PendingIntent activityIntent = PendingIntent.getActivity(context, 0, new Intent(context, SettingsActivity.class), 0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher))

@@ -21,15 +21,15 @@ public class AppShortcutActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(TrackerAccessibilityService.getInstance() == null || !Settings.canDrawOverlays(this)) {
-            SPUtil.setShowWindow(this, true);
+            SPUtil.setTrackerWindowShown(this, true);
             startActivity(new Intent(this, SettingsActivity.class));
             finish();
             return;
         }
 
-        boolean isShow = SPUtil.isShowWindow(this);
+        boolean isShown = SPUtil.isTrackerWindowShown(this);
         Intent intent = new Intent(NotificationUtil.ACTION_NOTIFICATION_CHANGED);
-        if(isShow) {
+        if(isShown) {
             intent.putExtra(NotificationUtil.EXTRA_NOTIFICATION_ACTION, NotificationUtil.ACTION_PAUSE);
         } else {
             intent.putExtra(NotificationUtil.EXTRA_NOTIFICATION_ACTION, NotificationUtil.ACTION_RESUME);

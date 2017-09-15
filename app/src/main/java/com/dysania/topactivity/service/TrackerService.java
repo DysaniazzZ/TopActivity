@@ -40,7 +40,7 @@ public class TrackerService extends Service {
             String topActivityDetail = ComponentsUtil.getTopActivityDetail(getApplicationContext());
             if (!topActivityDetail.equals(mTopActivityDetail)) {
                 mTopActivityDetail = topActivityDetail;
-                if (SPUtil.isShowWindow(TrackerService.this)) {
+                if (SPUtil.isTrackerWindowShown(TrackerService.this)) {
                     mHandler.post(new Runnable() {
                         @Override
                         public void run() {

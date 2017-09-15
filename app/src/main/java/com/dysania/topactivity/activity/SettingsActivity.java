@@ -29,6 +29,8 @@ public class SettingsActivity extends AppCompatActivity implements OnCheckedChan
     private Switch mSwShowDetails;
     private Intent mTrackerServiceIntent;
 
+    public static final String EXTRA_FROM_QS_TILE = "extra_from_qs_tile";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +41,18 @@ public class SettingsActivity extends AppCompatActivity implements OnCheckedChan
         mSwShowDetails.setOnCheckedChangeListener(this);
 
         mTrackerServiceIntent = new Intent(mContext, TrackerService.class);
+
+        if (getIntent().getBooleanExtra(EXTRA_FROM_QS_TILE, false)) {
+            mSwShowDetails.setChecked(true);
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (intent.getBooleanExtra(EXTRA_FROM_QS_TILE, false)) {
+            mSwShowDetails.setChecked(true);
+        }
     }
 
     @Override
@@ -51,20 +65,20 @@ public class SettingsActivity extends AppCompatActivity implements OnCheckedChan
     @Override
     protected void onPause() {
         super.onPause();
-        if (getResources().getBoolean(R.bool.use_tracker_service) && SPUtil.isShowWindow(mContext) && ComponentsUtil
+        if (getResources().getBoolean(R.bool.use_tracker_service) && SPUtil.isTrackerWindowShown(mContext) && ComponentsUtil
                 .isServiceRunning(mContext, TrackerService.class)) {
             NotificationUtil.showNotification(mContext, false);
             return;
         }
 
-        if (getResources().getBoolean(R.bool.use_tracker_accessibility_service) && SPUtil.isShowWindow(mContext)
+        if (getResources().getBoolean(R.bool.use_tracker_accessibility_service) && SPUtil.isTrackerWindowShown(mContext)
                 && TrackerAccessibilityService.getInstance() != null) {
             NotificationUtil.showNotification(mContext, false);
         }
     }
 
     private void refreshSwitchStatus() {
-        mSwShowDetails.setChecked(SPUtil.isShowWindow(mContext));
+        mSwShowDetails.setChecked(SPUtil.isTrackerWindowShown(mContext));
 
         if (getResources().getBoolean(R.bool.use_tracker_service) && !ComponentsUtil.isServiceRunning(mContext, TrackerService.class)) {
             mSwShowDetails.setChecked(false);
@@ -85,12 +99,12 @@ public class SettingsActivity extends AppCompatActivity implements OnCheckedChan
             } else {
                 stopService(mTrackerServiceIntent);
             }
-            SPUtil.setShowWindow(mContext, isChecked);
+            SPUtil.setTrackerWindowShown(mContext, isChecked);
             return;
         } else if (getResources().getBoolean(R.bool.use_tracker_accessibility_service)) {
             //TrackerAccessibilityService 可用时
             if (!isChecked) {
-                SPUtil.setShowWindow(mContext, isChecked);
+                SPUtil.setTrackerWindowShown(mContext, isChecked);
                 TrackerWindowUtil.dismiss();
                 return;
             }
@@ -139,7 +153,7 @@ public class SettingsActivity extends AppCompatActivity implements OnCheckedChan
                     .setPositiveButton(android.R.string.yes, new OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            SPUtil.setShowWindow(mContext, true);
+                            SPUtil.setTrackerWindowShown(mContext, true);
                             Intent intent = new Intent("android.settings.ACCESSIBILITY_SETTINGS");
                             startActivity(intent);
                         }
@@ -158,7 +172,7 @@ public class SettingsActivity extends AppCompatActivity implements OnCheckedChan
                     })
                     .show();
         } else {
-            SPUtil.setShowWindow(mContext, true);
+            SPUtil.setTrackerWindowShown(mContext, true);
             TrackerWindowUtil.show(mContext, getString(R.string.top_activity_details, getPackageName(), getClass().getName()));
         }
     }

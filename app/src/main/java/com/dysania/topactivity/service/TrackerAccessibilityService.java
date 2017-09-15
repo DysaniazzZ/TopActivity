@@ -21,7 +21,7 @@ public class TrackerAccessibilityService extends AccessibilityService {
 
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
-        if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED && SPUtil.isShowWindow(this)) {
+        if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED && SPUtil.isTrackerWindowShown(this)) {
             TrackerWindowUtil.show(this, getString(R.string.top_activity_details, event.getPackageName(), event.getClassName()));
         }
     }
@@ -33,7 +33,7 @@ public class TrackerAccessibilityService extends AccessibilityService {
     @Override
     protected void onServiceConnected() {
         sTrackerAccessibilityService = this;
-        if (SPUtil.isShowWindow(this)) {
+        if (SPUtil.isTrackerWindowShown(this)) {
             NotificationUtil.showNotification(this, false);
         }
         super.onServiceConnected();

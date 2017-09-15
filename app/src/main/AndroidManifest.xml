@@ -52,6 +52,17 @@
         android:resource="@xml/accessibility_service_config"/>
     </service>
 
+    <!--QuickSettings的服务，Android 7.0 后使用-->
+    <service
+      android:icon="@drawable/ic_notification"
+      android:label="@string/app_name"
+      android:name=".service.SwitchTileService"
+      android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+      <intent-filter>
+        <action android:name="android.service.quicksettings.action.QS_TILE"/>
+      </intent-filter>
+    </service>
+
     <receiver android:name=".receiver.NotificationActionReceiver">
       <intent-filter>
         <action android:name="com.dysania.topactivity.ACTION_NOTIFICATION_CHANGED"/>

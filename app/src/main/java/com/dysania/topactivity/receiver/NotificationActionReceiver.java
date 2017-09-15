@@ -20,7 +20,7 @@ public class NotificationActionReceiver extends BroadcastReceiver {
         switch (action) {
             case NotificationUtil.ACTION_PAUSE:
                 TrackerWindowUtil.dismiss();
-                SPUtil.setShowWindow(context, false);
+                SPUtil.setTrackerWindowShown(context, false);
                 NotificationUtil.showNotification(context, true);
                 break;
             case NotificationUtil.ACTION_RESUME:
@@ -30,12 +30,12 @@ public class NotificationActionReceiver extends BroadcastReceiver {
                 } else if (context.getResources().getBoolean(R.bool.use_tracker_accessibility_service)) {
                     TrackerWindowUtil.show(context, null);
                 }
-                SPUtil.setShowWindow(context, true);
+                SPUtil.setTrackerWindowShown(context, true);
                 NotificationUtil.showNotification(context, false);
                 break;
             case NotificationUtil.ACTION_STOP:
                 TrackerWindowUtil.dismiss();
-                SPUtil.setShowWindow(context, false);
+                SPUtil.setTrackerWindowShown(context, false);
                 NotificationUtil.cancelNotification(context);
                 break;
         }
