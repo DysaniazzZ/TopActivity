@@ -7,6 +7,7 @@ import android.os.Build;
 import android.provider.Settings;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
+import com.dysania.topactivity.MyApplication;
 import com.dysania.topactivity.activity.SettingsActivity;
 import com.dysania.topactivity.util.NotificationUtil;
 import com.dysania.topactivity.util.SPUtil;
@@ -32,6 +33,9 @@ public class SwitchTileService extends TileService {
     public void onTileRemoved() {
         super.onTileRemoved();
         SPUtil.setQSTileAdded(this, false);
+        if (isTrackerAvailable() && SPUtil.isTrackerWindowShown(this) && MyApplication.sIsBackground) {
+            NotificationUtil.showNotification(this, false);
+        }
     }
 
     @Override
@@ -61,6 +65,11 @@ public class SwitchTileService extends TileService {
 
     private void updateTileState(boolean isTileActive) {
         Tile tile = getQsTile();
+
+        if (tile == null) {
+            return;
+        }
+
         int newState = isTileActive ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE;
         tile.setState(newState);
         tile.updateTile();

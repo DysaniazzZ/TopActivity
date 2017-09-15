@@ -62,21 +62,6 @@ public class SettingsActivity extends AppCompatActivity implements OnCheckedChan
         NotificationUtil.cancelNotification(mContext);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (getResources().getBoolean(R.bool.use_tracker_service) && SPUtil.isTrackerWindowShown(mContext) && ComponentsUtil
-                .isServiceRunning(mContext, TrackerService.class)) {
-            NotificationUtil.showNotification(mContext, false);
-            return;
-        }
-
-        if (getResources().getBoolean(R.bool.use_tracker_accessibility_service) && SPUtil.isTrackerWindowShown(mContext)
-                && TrackerAccessibilityService.getInstance() != null) {
-            NotificationUtil.showNotification(mContext, false);
-        }
-    }
-
     private void refreshSwitchStatus() {
         mSwShowDetails.setChecked(SPUtil.isTrackerWindowShown(mContext));
 
