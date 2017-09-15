@@ -12,7 +12,7 @@
   <application
     android:allowBackup="true"
     android:icon="@mipmap/ic_launcher"
-    android:label="@string/app_name"
+    android:label="@string/launcher_name"
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
 
@@ -28,16 +28,17 @@
         android:resource="@xml/app_shortcut_config"/>
     </activity>
 
-    <activity android:name=".activity.AppShortcutActivity"
+    <activity
       android:excludeFromRecents="true"
-      android:exported="false"/>
+      android:exported="false"
+      android:name=".activity.AppShortcutActivity"/>
 
-    <!--普通的服务，Android5.0 前使用-->
+    <!--普通的服务，Android 5.0 前使用-->
     <service
       android:enabled="@bool/use_tracker_service"
       android:name=".service.TrackerService"/>
 
-    <!--辅助功能的服务，Android5.0 后使用-->
+    <!--辅助功能的服务，Android 5.0 后使用-->
     <service
       android:enabled="@bool/use_tracker_accessibility_service"
       android:name=".service.TrackerAccessibilityService"
