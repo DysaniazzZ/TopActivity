@@ -25,7 +25,7 @@ public class TrackerWindowUtil {
         sWindowManager = (WindowManager) context.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
         sLayoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
                 VERSION.SDK_INT >= VERSION_CODES.M ? LayoutParams.TYPE_SYSTEM_ALERT : LayoutParams.TYPE_TOAST,
-                0x18, PixelFormat.TRANSLUCENT);
+                LayoutParams.FLAG_NOT_TOUCH_MODAL | LayoutParams.FLAG_NOT_FOCUSABLE, PixelFormat.TRANSLUCENT);
         sLayoutParams.gravity = Gravity.TOP | Gravity.LEFT;
         sView = LayoutInflater.from(context.getApplicationContext()).inflate(R.layout.view_tracker_window, null);
     }
